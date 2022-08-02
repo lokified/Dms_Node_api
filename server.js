@@ -8,6 +8,14 @@ const PORT = process.env.PORT || 3000
 app.use(bodyParser.json());
 
 
+app.get("/", (req, res) => {
+
+    if(req.url) {
+        
+        res.send("hello world")
+    }
+})
+
 app.use("/", userRoutes);
 
 app.listen(PORT, () => {
