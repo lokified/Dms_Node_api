@@ -33,12 +33,12 @@ export const getSecurityQuestions = (req, res) => {
 
 export const postSecurityAnswers = (req, res) => {
 
-    const { user_id } = req.params;
 
     const { 
         answer_1,
         answer_2,
-        answer_3
+        answer_3,
+        user_id 
     } = req.body;
 
     pool.query('INSERT INTO security_questions (answer_1, answer_2, answer_3, user_id) VALUES($1, $2, $3, $4) RETURNING *', [answer_1, answer_2, answer_3, user_id], (err, results) => {

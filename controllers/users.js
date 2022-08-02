@@ -30,7 +30,7 @@ export const createUser = (req, res) => {
             throw err;
         }
 
-        res.status(201).json({ "message" : `user added with id: ${results.rows[0].id}` })
+        res.status(201).json({"id": results.rows[0].id, "message" : `user added with id: ${results.rows[0].id}` })
     })
 }
 
