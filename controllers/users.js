@@ -16,9 +16,15 @@ export const getUsers = (req, res) => {
 
 export const createUser = (req, res) => {
 
-    const {name, email} = req.body;
+    const { 
+        firstName, 
+        lastName, 
+        idNumber, 
+        phoneNumber, 
+        email
+    } = req.body;
 
-    pool.query('INSERT INTO users (name, email) VALUES($1, $2) RETURNING *', [name, email], (err, results) => {
+    pool.query('INSERT INTO users (firstName, lastName, idNumber, phoneNumber, email) VALUES($1, $2, $3, $4, $5) RETURNING *', [firstName, lastName, idNumber, phoneNumber, email], (err, results) => {
 
         if(err) {
             throw err;
@@ -28,44 +34,24 @@ export const createUser = (req, res) => {
     })
 }
 
-export const getUser = (req, res) => {
 
-    const id = parseInt(req.params.id)
-
-    pool.query('SELECT * FROM users WHERE id = $1', [id], (err, results) => {
-
-        if(err) {
-            throw err;
-        }
-        res.status(200).json(results.rows)
-
-    })
-}
-
-export const deleteUser = (req,res) => {
-
-    const { id } = req.params;
-
-    pool.query('DELETE FROM users WHERE id = $1', [id], (err, results) => {
-
-        if(err) throw err;
-
-        res.status(200).send(`user with id ${id} is deleted`)
-    })
-
-}
-
-export const updateUser = (req, res) => {
+export const updateUserDetails = (req, res) => {
 
     const id = parseInt(req.params.id);
-    const {name, email} = req.body;
+    const { 
+        firstName, 
+        lastName, 
+        idNumber, 
+        phoneNumber, 
+        email
+    } = req.body;
 
-    pool.query('UPDATE users SET name = $1, email = $2 WHERE id = $3',
-    [name, email, id], (err, results) => {
+    pool.query('UPDATE users SET firstName = $1, lastName = $2, idNumber = $3, phoneNumber = $4, email = $5 WHERE id = $6',
+    [firstName, lastName, idNumber, phoneNumber, email, id], (err, results) => {
 
         if(err) throw err;
 
-        res.status(200).send(`user with id: ${id}`)
+        res.status(200).send(`user with id: ${id} is updated`)
 
     });
 }
