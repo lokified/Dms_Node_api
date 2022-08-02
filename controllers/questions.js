@@ -41,7 +41,7 @@ export const postSecurityAnswers = (req, res) => {
         user_id 
     } = req.body;
 
-    pool.query('INSERT INTO security_questions (answer_1, answer_2, answer_3, user_id) VALUES($1, $2, $3, $4) RETURNING *', [answer_1, answer_2, answer_3, user_id], (err, results) => {
+    pool.query('INSERT INTO security_answers (answer_1, answer_2, answer_3, user_id) VALUES($1, $2, $3, $4) RETURNING *', [answer_1, answer_2, answer_3, user_id], (err, results) => {
 
         if(err) {
             throw err;
