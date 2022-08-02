@@ -14,7 +14,7 @@ export const postSecurityQuestions = (req, res) => {
             throw err;
         }
 
-        res.status(201).send(`security question added with id: ${results.rows[0].id}`)
+        res.status(201).json({ "message" : `security question added with id: ${results.rows[0].id}` });
     })
 }
 
@@ -26,7 +26,7 @@ export const getSecurityQuestions = (req, res) => {
             throw err;
         }
         else {
-            res.status(200).json(results.rows)
+            res.status(200).json(results.rows);
         }
     })
 }
@@ -47,6 +47,6 @@ export const postSecurityAnswers = (req, res) => {
             throw err;
         }
 
-        res.status(201).send(`security answer added with user id: ${results.rows[0].user_id}`)
+        res.status(201).json( { "message" : `security answer added with user id: ${results.rows[0].user_id}` });
     })
 }

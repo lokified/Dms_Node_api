@@ -30,7 +30,7 @@ export const createUser = (req, res) => {
             throw err;
         }
 
-        res.status(201).send(`user added with id: ${results.rows[0].id}`)
+        res.status(201).json({ "message" : `user added with id: ${results.rows[0].id}` })
     })
 }
 
@@ -51,7 +51,7 @@ export const updateUserDetails = (req, res) => {
 
         if(err) throw err;
 
-        res.status(200).send(`user with id: ${id} is updated`)
+        res.status(200).json({ "message" : `user with id: ${id} is updated` })
 
     });
 }
