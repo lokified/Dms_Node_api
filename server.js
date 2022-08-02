@@ -7,15 +7,6 @@ const PORT = process.env.PORT || 3000
 
 app.use(bodyParser.json());
 
-app.use(
-    bodyParser.urlencoded(
-        {
-            extended : true
-        }
-    )
-)
-
-app.use("/api", userRoutes);
 
 app.get("/", (req, res) => {
 
@@ -24,6 +15,8 @@ app.get("/", (req, res) => {
         res.send("hello world")
     }
 })
+
+app.use("/api", userRoutes);
 
 app.listen(PORT, () => {
     console.log(`server running on port: http://localhost:${PORT}`)
