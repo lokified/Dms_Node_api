@@ -24,26 +24,39 @@ export const createUser = (req, res) => {
         email
     } = req.body;
 
-    pool.query('INSERT INTO users (firstName, lastName, idNumber, phoneNumber, email) VALUES($1, $2, $3, $4, $5) RETURNING *', [firstName, lastName, idNumber, phoneNumber, email], (err, results) => {
+    pool.query('SELECT * FROM users WHERE phoneNumber = $1', [phoneNumber], (error, results) => {
 
-        if(!err) {
+        if(!error){
 
-            const users = pool.query('SELECT * FROM users WHERE phoneNumber = $1', [phoneNumber]);
+            if(results.rows.length <= 0) {
 
-            if(users.rows.length != 0) {
-                return res.status(400).json({error: "phone number already exists."});
+                pool.query('INSERT INTO users (firstName, lastName, idNumber, phoneNumber, email) VALUES($1, $2, $3, $4, $5) RETURNING *', [firstName, lastName, idNumber, phoneNumber, email], (err, results) => {
+
+                    if(!err) {
+
+                        res.status(201).json({ id : results.rows[0].id, message : `user added with id: ${results.rows[0].id}` });
+                    }
+                    else {
+                        res.status(500).json(err)
+                    }
+
+                });
             }
             else{
-                res.status(201).json({"id": results.rows[0].id, "message" : `user added with id: ${results.rows[0].id}` });
+                
+                res.status(400).json({message: "user already exists."});
+
             }
-            
         }
         else {
-            throw err;
+            res.status(500).json(error)
         }
-
     });
+            
+
+
 }
+
 
 
 export const updateUserDetails = (req, res) => {
