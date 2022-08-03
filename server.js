@@ -20,6 +20,17 @@ app.get("/", (req, res) => {
 app.use("/api", userRoutes);
 app.use("/api", questionsRoutes);
 
+app.use("*", (req, res) => {
+    res.status(404).json({
+      success: "false",
+      message: "Page not found",
+      error: {
+        statusCode: 404,
+        message: "You reached a route that is not defined on this server",
+      },
+    });
+  });
+
 app.listen(PORT, () => {
     console.log(`server running on port: http://localhost:${PORT}`)
 })

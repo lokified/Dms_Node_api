@@ -4,8 +4,9 @@ CREATE TABLE users (
     lastName VARCHAR,
     idNumber VARCHAR,
     phoneNumber VARCHAR UNIQUE,
-    email VARCHAR
-    );
+    email VARCHAR,
+    pin VARCHAR NOT NULL
+);
 
 CREATE TABLE security_questions (
     id SERIAL PRIMARY KEY,
