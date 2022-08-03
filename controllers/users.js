@@ -26,12 +26,23 @@ export const createUser = (req, res) => {
 
     pool.query('INSERT INTO users (firstName, lastName, idNumber, phoneNumber, email) VALUES($1, $2, $3, $4, $5) RETURNING *', [firstName, lastName, idNumber, phoneNumber, email], (err, results) => {
 
-        if(err) {
+        if(!err) {
+
+            const users = pool.query('SELECT * FROM users WHERE phoneNumber = $1', [phoneNumber]);
+
+            if(users.rows.length != 0) {
+                return res.status(400).json({error: "phone number already exists."});
+            }
+            else{
+                res.status(201).json({"id": results.rows[0].id, "message" : `user added with id: ${results.rows[0].id}` });
+            }
+            
+        }
+        else {
             throw err;
         }
 
-        res.status(201).json({"id": results.rows[0].id, "message" : `user added with id: ${results.rows[0].id}` })
-    })
+    });
 }
 
 

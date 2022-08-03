@@ -1,10 +1,10 @@
 CREATE TABLE users (
     id SERIAL PRIMARY KEY, 
-    firstName VARCHAR, 
-    lastName VARCHAR,
-    idNumber VARCHAR,
-    phoneNumber VARCHAR,
-    email VARCHAR
+    firstName VARCHAR NOT NULL, 
+    lastName VARCHAR NOT NULL,
+    idNumber VARCHAR NOT NULL,
+    phoneNumber VARCHAR NOT NULL UNIQUE,
+    email VARCHAR NOT NULL UNIQUE
     );
 
 CREATE TABLE security_questions (
