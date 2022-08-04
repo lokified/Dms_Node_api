@@ -1,12 +1,18 @@
 import express from "express";
 import bodyParser from "body-parser";
+import cors from 'cors';
 import userRoutes from "./routes/user.js";
 import questionsRoutes from "./routes/question.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000
 
+app.use(cors());
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
+
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 
 app.get("/", (req, res) => {
