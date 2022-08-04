@@ -91,7 +91,7 @@ export const loginUser = (req, res) => {
 
             if(userData.length <= 0 || userData[0].pin != pin) {
 
-                res.status(401).json({message: "invalid pin"});
+                res.status(401).json({message: "invalid pin or phone number"});
             }
             else {
 
@@ -115,4 +115,25 @@ export const loginUser = (req, res) => {
             res.status(500).json({message: err});
         }
     })
+}
+
+export const accountLookUp = (req, res) => {
+
+    const { phoneNumber } = req.params;
+
+    pool.query('SELECT * FROM users WHERE phoneNumber = $1', [phoneNumber], (error, results) => {
+
+        if(!error) {
+
+            if(results.rows.length > 0) {
+                res.json({ message : "you are already registered"});
+            }
+            else{
+                res.json({ message : "you are not registered"});
+            }
+        }
+        else{
+            res.json({ message : error });
+        }
+    });
 }
