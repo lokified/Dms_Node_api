@@ -5,7 +5,9 @@ CREATE TABLE users (
     idNumber VARCHAR,
     phoneNumber VARCHAR UNIQUE,
     email VARCHAR,
-    pin VARCHAR NOT NULL
+    pin VARCHAR NOT NULL,
+    otp VARCHAR, 
+    verified BOOLEAN
 );
 
 CREATE TABLE security_questions (

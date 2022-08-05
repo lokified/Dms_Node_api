@@ -32,7 +32,7 @@ export const createUser = (req, res) => {
 
             if(results.rows.length <= 0) {
 
-                pool.query('INSERT INTO users (firstName, lastName, idNumber, phoneNumber, email, pin) VALUES($1, $2, $3, $4, $5, $6) RETURNING *', [firstName, lastName, idNumber, phoneNumber, email, "0000"], (err, results) => {
+                pool.query('INSERT INTO users (firstName, lastName, idNumber, phoneNumber, email, pin, otp, verified) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *', [firstName, lastName, idNumber, phoneNumber, email, "0000", "0000", false], (err, results) => {
 
                     if(!err) {
 
