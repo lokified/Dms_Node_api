@@ -63,7 +63,7 @@ export const createUser = (req, res) => {
 
 export const updateUserDetails = (req, res) => {
 
-    const phoneNumber = parseInt(req.params.phoneNumber);
+    const phoneNumber = req.params.phoneNumber;
     const { pin } = req.body;
 
     pool.query('UPDATE users SET  pin = $1 WHERE phoneNumber = $2',
