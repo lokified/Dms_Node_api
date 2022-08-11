@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import cors from 'cors';
 import userRoutes from "./routes/user.js";
 import questionsRoutes from "./routes/question.js";
+import forgotPinRoutes from "./routes/forgotpin.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000
@@ -25,6 +26,7 @@ app.get("/", (req, res) => {
 
 app.use("/api", userRoutes);
 app.use("/api", questionsRoutes);
+app.use("/api", forgotPinRoutes);
 
 app.use("*", (req, res) => {
     res.status(404).json({
