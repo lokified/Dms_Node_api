@@ -74,44 +74,6 @@ export const verifyWithSecurityQuestion = (req, res) => {
     })
 }
 
-export const verifyChangePinOtp = (req,res) => {
-
-    const { phoneNumber, smsCode } = req.body;
-
-    pool.query('SELECT otp FROM users WHERE phoneNumber = $1', [phoneNumber], (err, results) => {
-
-        if(!err) {
-
-            const userData = results.rows;
-
-            if(userData.length <= 0) {
-                return res.json({ message: "no user in the database" })
-
-            } else {
-
-                const code = userData[0].otp;
-
-                if(code === smsCode) {
-
-                    res.json({ message: "verification successful" });
-
-                }
-                else {
-
-                    res.json({ message: "verification not successful, check your details again" });
-                    
-                }
-                
-            }
-
-        }
-        else {
-
-            res.json({ message: `${err}` });
-        }
-
-    });
-}
 
 
 const sendOTP = (phoneNumber) => {
@@ -125,4 +87,6 @@ const sendOTP = (phoneNumber) => {
         to: phoneNumber,
         body: message,
     });
+
+    pool.query('UPDATE users SET otp = $1, verified = $2 WHERE phoneNumber = $3', [randomNumber, false, phoneNumber]);
 }
