@@ -63,15 +63,15 @@ export const createUser = (req, res) => {
 
 export const updateUserDetails = (req, res) => {
 
-    const id = parseInt(req.params.id);
+    const phoneNumber = parseInt(req.params.phoneNumber);
     const { pin } = req.body;
 
-    pool.query('UPDATE users SET  pin = $1 WHERE id = $2',
-    [pin, id], (err, results) => {
+    pool.query('UPDATE users SET  pin = $1 WHERE phoneNumber = $2',
+    [pin, phoneNumber], (err, results) => {
 
         if(err) throw err;
 
-        res.status(200).json({ "message" : `user with id: ${id} is updated` })
+        res.status(200).json({ "message" : `user's pin is updated` })
 
     });
 }

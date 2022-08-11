@@ -6,7 +6,7 @@ const userRouter = express.Router();
 
 userRouter.get("/users", getUsers);
 userRouter.post("/user", createUser);
-userRouter.patch("/user/:id", updateUserDetails);
+userRouter.patch("/user/:phoneNumber", updateUserDetails);
 userRouter.post("/userLogin", loginUser);
 userRouter.post("/accountLookUp/:phoneNumber", accountLookUp);
 
