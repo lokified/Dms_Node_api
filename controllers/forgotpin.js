@@ -14,7 +14,7 @@ export const verifyWithId = (req,res) => {
 
             const userData = results.rows;
 
-            if(userData.length > 0 || userData[0].idNumber === idNumber) {
+            if(userData.length > 0 || userData[0].idnumber === idNumber) {
 
                 sendOTP(phoneNumber);
                 res.json({ message: "You id number exists"});

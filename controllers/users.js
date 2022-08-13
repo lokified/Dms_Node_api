@@ -128,7 +128,8 @@ export const accountLookUp = (req, res) => {
             if(results.rows.length > 0) {
                 res.json({ 
                     message : "you are already registered",
-                    firstName : `${results.rows[0].firstname}`
+                    firstName : `${results.rows[0].firstname}`,
+                    lastName: `${results.rows[0].lastname}` 
                 });
             }
             else{
