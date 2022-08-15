@@ -121,15 +121,16 @@ export const accountLookUp = (req, res) => {
 
     const { phoneNumber } = req.params;
 
-    pool.query('SELECT firstName, phoneNumber FROM users WHERE phoneNumber = $1', [phoneNumber], (error, results) => {
+    pool.query('SELECT id, firstName, phoneNumber FROM users WHERE phoneNumber = $1', [phoneNumber], (error, results) => {
 
         if(!error) {
 
             if(results.rows.length > 0) {
                 res.json({ 
-                    message : "you are already registered",
+                    id: results.rows[0].id,
                     firstName : `${results.rows[0].firstname}`,
-                    lastName: `${results.rows[0].lastname}` 
+                    lastName: `${results.rows[0].lastname}`,
+                    message : "you are already registered"  
                 });
             }
             else{
