@@ -6,7 +6,7 @@ export const verifyWithId = (req,res) => {
 
     const { phoneNumber, idNumber } = req.body;
 
-    const query = 'SELECT idNumber FROM users WHERE phoneNumber = $1';
+    const query = 'SELECT idnumber FROM users WHERE phoneNumber = $1';
 
     pool.query( query, [phoneNumber], (err, results) => {
 
@@ -14,7 +14,9 @@ export const verifyWithId = (req,res) => {
 
             const userData = results.rows;
 
-            if(userData.length > 0 && userData[0].idNumber === idNumber) {
+            console.log(userData[0].idNumber)
+
+            if(userData.length > 0 && userData[0].idnumber === idNumber) {
 
                 sendOTP(phoneNumber);
                 res.json({ message: "You id number exists"});
@@ -34,13 +36,17 @@ export const verifyWithId = (req,res) => {
 
 export const verifyWithSecurityQuestion = (req, res) => {
 
-    const { phoneNumber, answer_1 } = req.body;
+    const { phoneNumber, answer1 } = req.body;
 
     const query = 'SELECT id FROM users WHERE phoneNumber = $1';
 
-    pool.query( query, [phoneNumber], (err, results) => {
+    pool.query( 'SELECT id FROM users WHERE phoneNumber = $1', [phoneNumber], (err, results) => {
 
         if(!err) {
+        
+
+            console.log(results.rows)
+
 
             const user_id = results.rows[0].id;
 
@@ -51,7 +57,7 @@ export const verifyWithSecurityQuestion = (req, res) => {
 
                 if(!error) {
 
-                    if(answerData.length > 0 && answerData[0].answer_1 === answer_1) {
+                    if(answerData.length > 0 && answerData[0].answer_1 === answer1) {
 
                         sendOTP(phoneNumber);
                         res.json({message: "You answer matches"});

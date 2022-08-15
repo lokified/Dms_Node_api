@@ -5,9 +5,9 @@ import {
    verifyWithSecurityQuestion
 } from "../controllers/forgotpin.js";
 
-const routes = express.Router();
+const forgotPinRoutes = express.Router();
 
-routes.post("/verifyWithId", verifyWithId);
-routes.post("/verifyWithSecurityQuestion", verifyWithSecurityQuestion);
+forgotPinRoutes.post("/verifyWithId", verifyWithId);
+forgotPinRoutes.post("/verifyWithSecurityQuestion", verifyWithSecurityQuestion);
 
-export default routes;
+export default forgotPinRoutes;
