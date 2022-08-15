@@ -38,22 +38,16 @@ export const verifyWithSecurityQuestion = (req, res) => {
 
     const { phoneNumber, answer1 } = req.body;
 
-    const query = 'SELECT id FROM users WHERE phoneNumber = $1';
-
-    pool.query( 'SELECT id FROM users WHERE phoneNumber = $1', [phoneNumber], (err, results) => {
+    pool.query( 'SELECT id FROM users WHERE phoneNumber = $1', [phoneNumber], (err, resul) => {
 
         if(!err) {
-        
 
-            console.log(results.rows)
-
-
-            const user_id = results.rows[0].id;
+            const user_id = resul.rows[0].id;
 
 
-            pool.query('SELECT answer_1 FROM security_answers WHERE user_id = $1', [user_id], (error, result) => {
+            pool.query('SELECT answer_1 FROM security_answers WHERE user_id = $1', [user_id], (error, resu) => {
 
-                const answerData = result.rows;
+                const answerData = resu.rows;
 
                 if(!error) {
 
