@@ -121,7 +121,7 @@ export const accountLookUp = (req, res) => {
 
     const { phoneNumber } = req.params;
 
-    pool.query('SELECT id, firstName, phoneNumber FROM users WHERE phoneNumber = $1', [phoneNumber], (error, results) => {
+    pool.query('SELECT id, firstName, lastName, phoneNumber FROM users WHERE phoneNumber = $1', [phoneNumber], (error, results) => {
 
         if(!error) {
 
