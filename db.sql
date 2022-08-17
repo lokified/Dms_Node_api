@@ -24,3 +24,20 @@ CREATE TABLE security_answers (
     answer_3 VARCHAR,
     user_id INTEGER
 );
+
+CREATE TABLE wallet (
+    id SERIAL PRIMARY KEY,
+    amount VARCHAR,
+    user_id INTEGER
+);
+
+CREATE TABLE transactions (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR,
+    phoneNumber VARCHAR,
+    amount VARCHAR,
+    transactionType VARCHAR,
+    transacted_at TIME DEFAULT CURRENT_TIME,
+    transacted_on DATE DEFAULT CURRENT_DATE,
+    user_id INTEGER
+);

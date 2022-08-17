@@ -36,7 +36,11 @@ export const createUser = (req, res) => {
 
                     if(!err) {
 
-                        res.status(201).json({ id : results.rows[0].id, message : "user added" });
+                        const id = results.rows[0].id;
+                        
+                        pool.query('INSERT INTO wallet (amount, user_id) VALUES ($1, $2)', ["0", id]);
+
+                        res.status(201).json({ id : id, message : "user added" });
                     }
                     else {
                         res.status(500).json(err)
